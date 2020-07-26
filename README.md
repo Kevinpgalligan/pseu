@@ -7,19 +7,15 @@ pseu is a command line tool that provides several pseudorandom utilities:
 * choice from a list.
 
 ## Commands
-#### roll
+#### roll ✅
 ```
 pseu roll # rolls 1d6 by default
 pseu roll 1d3
 pseu roll 2d3
 pseu roll 2d3 5d7
+pseu roll 2d3 --stats
+pseu roll 2d3 --seed abc
 ```
-
-IF it rolls a single dice, just output that number.
-
-IF multiple dice are rolled, output stats (min, max, sum, avg).
-
-Alternatively, have a flag to output stats.
 
 #### rand
 Should also have stats.

@@ -4,6 +4,8 @@ import argparse
 import re
 import random as rd
 
+BASE64_CHARS = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz+/"
+
 ROLL_REG = re.compile("^([1-9][0-9]*)d([1-9][0-9]*)$")
 RAND_REG = re.compile("([0-9]+)-([0-9]+)")
 
@@ -111,9 +113,9 @@ def add_subparser(subparsers, name, description, f, args):
     def wrapped_func(cli_args):
         try:
             if cli_args.seed:
-                r = rd.Random()
-            else:
                 r = rd.Random(parse_base64_seed(cli_args.seed))
+            else:
+                r = rd.Random()
             f(r, *[getattr(cli_args, arg.name) for arg in args])
         except Exception as e:
             # TODO show message, exit with failure.
@@ -121,8 +123,14 @@ def add_subparser(subparsers, name, description, f, args):
     parser.set_defaults(func=wrapped_func)
 
 def parse_base64_seed(s):
-    # TODO
-    return None
+    result = 0
+    for i, c in enumerate(reversed(s)):
+        try:
+            result += BASE64_CHARS.index(c) * (64**i)
+        except ValueError as e:
+            # TODO raise a nicer exception
+            raise e
+    return result
 
 SUBCOMMANDS = [
     ("roll",
