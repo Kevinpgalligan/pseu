@@ -6,8 +6,6 @@ pseu is a command line tool that provides several pseudorandom utilities:
 * number generation.
 * choice from a list.
 
-It's designed to be flexible enough to integrate well with other tools.
-
 ## Commands
 #### roll
 ```
@@ -24,11 +22,15 @@ IF multiple dice are rolled, output stats (min, max, sum, avg).
 Alternatively, have a flag to output stats.
 
 #### rand
+Should also have stats.
+
 ```
 pseu rand # some arbitrary range
+pseu rand 5 # 0-4
 pseu rand --bytes 4
 pseu rand --bits 3
 pseu rand 1-3 # undecided: inclusivity of bounds?
+pseu rand 1-3x5 # repeat 5 times
 pseu rand [0,3)
 pseu rand (0,3]
 pseu rand --binary 0-5
@@ -53,6 +55,14 @@ pseu pick bob alice judy
 pseu pick --n 2 bob alice judy
 echo '[1, 2, 3]' | pseu pick --json --n 2
 ```
+
+#### MORE IDEAS
+* Output in different bases.
+* String (e.g. random hex string of 16 chars, random base64).
+* Date/time (specific day of the week: random Monday in 2006, for example).
+* An image/bitmap of some description.
+* Random colour.
+* But, come on. Reign it in. 1) Only implement things that are useful for me, otherwise I'll never use them and they won't be well-tested. 2) More commands and options -> more docs to maintain, more complexity, etc. And more difficult to grasp the tool in its entirety. 3) There should be only 1 way to do things.
 
 ## Installation
 TODO
