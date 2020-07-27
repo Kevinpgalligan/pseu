@@ -7,7 +7,8 @@ pseu is a command line tool that provides several pseudorandom utilities:
 * choice from a list.
 
 ## Commands
-#### roll ✅
+#### roll (DONE)
+
 ```
 pseu roll # rolls 1d6 by default
 pseu roll 1d3
@@ -17,35 +18,30 @@ pseu roll 2d3 --stats
 pseu roll 2d3 --seed abc
 ```
 
-#### rand
-Should also have stats.
+#### rand (DONE)
 
 ```
-pseu rand # some arbitrary range
+pseu rand # [0, 2^16)
 pseu rand 5 # 0-4
-pseu rand --bytes 4
-pseu rand --bits 3
-pseu rand 1-3 # undecided: inclusivity of bounds?
+pseu rand 1-3
 pseu rand 1-3x5 # repeat 5 times
-pseu rand [0,3)
-pseu rand (0,3]
-pseu rand --binary 0-5
-pseu rand --binary --bits 7
-pseu rand --binary --big-endian --bytes 8
+pseu rand 1-3x5 --stats
+pseu rand 1-3 --seed abc
 ```
 
 #### shuffle
+
 ```
-pseu shuffle --linewise # shuffles each line separately, prob default
 pseu shuffle bob alice pete # output: alice pete bob
-pseu shuffle --sep ';'
+pseu shuffle --sep ';' 1;2;pizza;3
 pseu shuffle --lines # shuffles around the lines
 echo '[1, 2, 3]' | pseu shuffle --json
 ```
 
 #### pick
+
 ```
-pseu pick --line  # pick a line
+pseu pick --lines  # pick a line
 pseu pick --sep ';' 1;2;pizza;3
 pseu pick bob alice judy
 pseu pick --n 2 bob alice judy
