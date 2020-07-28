@@ -1,67 +1,69 @@
 ## Description
-pseu is a command line tool that provides several pseudorandom utilities:
-
-* shuffling.
-* dice rolling.
-* number generation.
-* choice from a list.
-
-## Commands
-#### roll (DONE)
+pseu is a CLI tool that provides the following pseudorandom utilities: picking, shuffling, dice-rolling and number generation. It's useful for people who frequently call on machines to make their life choices.
 
 ```
-pseu roll # rolls 1d6 by default
-pseu roll 1d3
-pseu roll 2d3
-pseu roll 2d3 5d7
-pseu roll 2d3 --stats
-pseu roll 2d3 --seed abc
+$ pseu pick "good life choice" "bad life choice"
+bad life choice
+$ pseu pick --n 2 </tmp/movies.txt
+Boogie Nights
+The Hunt for the Wilderpeople
+$ pseu roll 1d6
+3
+$ pseu rand 100
+42
+$ pseu shuffle alice sue bob
+bob
+sue
+alice
 ```
 
-#### rand (DONE)
+## Setup
+**Requires Python 3**.
+
+* Clone this repo.
+* Create a hard link pointing to `src/pseu/__init__.py` in your `/usr/bin/` directory. Using a hard link means that the link won't stick around if you ever remove the repo.
+* Give it execute permissions.
 
 ```
-pseu rand # [0, 2^16)
-pseu rand 5 # 0-4
-pseu rand 1-3
-pseu rand 1-3x5 # repeat 5 times
-pseu rand 1-3x5 --stats
-pseu rand 1-3 --seed abc
+$ pwd
+/home/kg
+$ git clone https://github.com/Kevinpgalligan/pseu
+...
+$ sudo ln /home/kg/pseu/src/pseu/__init__.py /usr/bin/pseu
+...
+$ chmod 755 /usr/bin/pseu
 ```
 
-#### shuffle
+## More examples
+`roll` and `rand` can print stats.
 
 ```
-pseu shuffle bob alice pete # output: alice pete bob
-pseu shuffle --sep ';' 1;2;pizza;3
-pseu shuffle --lines # shuffles around the lines
-echo '[1, 2, 3]' | pseu shuffle --json
+$ pseu roll 3d6 --stats
+4 5 4
+sum: 13
+max: 5
+min: 4
 ```
 
-#### pick
+Multiple types of dice, multiple random numbers.
 
 ```
-pseu pick --lines  # pick a line
-pseu pick --sep ';' 1;2;pizza;3
-pseu pick bob alice judy
-pseu pick --n 2 bob alice judy
-echo '[1, 2, 3]' | pseu pick --json --n 2
+$ pseu roll 2d6 6d3
+6 6 1 3 3 1 2 1
+$ pseu rand 1-3x5 10-20
+2 2 1 3 1 16
 ```
 
-#### MORE IDEAS
-* Output in different bases.
-* String (e.g. random hex string of 16 chars, random base64).
-* Date/time (specific day of the week: random Monday in 2006, for example).
-* An image/bitmap of some description.
-* Random colour.
-* But, come on. Reign it in. 1) Only implement things that are useful for me, otherwise I'll never use them and they won't be well-tested. 2) More commands and options -> more docs to maintain, more complexity, etc. And more difficult to grasp the tool in its entirety. 3) There should be only 1 way to do things.
+Use a (base64) seed to repeat results.
 
-## Installation
-TODO
+```
+$ pseu 1-1000 --seed abc
+903
+$ pseu 1-1000 --seed abc
+903
+```
 
-## TODO
-* Input through stdin or arglist.
-* json input (shuffle, pick).
-* Linewise vs whole input.
-* Maybe number gen and dice rolling don't need such flexible options, they just search & replace. Then you could use them to replace stuff in a document.
-* Ask D&D types for their opinions, what would be useful? Maybe the ability to identify a crit?
+## Contributing
+Feel free to submit tweaks.
+
+To run tests, install tox via `pip3 install tox` and then run the `tox` command from the base directory.
