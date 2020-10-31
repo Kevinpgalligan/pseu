@@ -1,4 +1,4 @@
-from pseu import parse_dice, parse_range, Range, CliError
+from pseucli import parse_dice, parse_range, Range, CliError
 import pytest
 
 def test_parse_dice():

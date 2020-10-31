@@ -18,20 +18,10 @@ alice
 ```
 
 ## Setup
-**Requires Python 3**.
-
-* Clone this repo.
-* Create a hard link pointing to `src/pseu/__init__.py` in your `/usr/bin/` directory. Using a hard link means that the link won't stick around if you ever remove the repo.
-* Give it execute permissions.
+Requires Python 3. Install from [PyPI](https://pypi.org/project/pseu-cli/) using pip:
 
 ```
-$ pwd
-/home/kg
-$ git clone https://github.com/Kevinpgalligan/pseu
-...
-$ sudo ln /home/kg/pseu/src/pseu/__init__.py /usr/bin/pseu
-...
-$ chmod 755 /usr/bin/pseu
+pip3 install pseu-cli
 ```
 
 ## More examples
